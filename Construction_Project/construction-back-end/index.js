@@ -79,7 +79,7 @@ app.post('/getAllDataOnPoNumber', (req, res) => {
 
   
 app.get("/", (req, res) => {
-    res.json("This is nodjs Backend root");
+    res.json("This is nodjs Backend server running");
 });
 
 app.listen(3306, () => {
