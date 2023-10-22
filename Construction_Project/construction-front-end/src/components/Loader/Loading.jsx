@@ -8,7 +8,7 @@ const Loader = () => {
         <div className="animate-bounce mb-2 text-3xl">
             <div className="h-10 w-10 border-t-4 border-blue-500 rounded-full animate-spin">  
                 <CircularProgress /> 
-                <p>Loading... </p>    
+                <p>Loading..</p>    
             </div>
         </div>        
       </div>

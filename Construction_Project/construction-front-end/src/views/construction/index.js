@@ -78,8 +78,8 @@ const Construction = () => {
     <Container maxWidth='lg' className='shadow-lg border'>   
         <Box>
         <Grid container spacing={2}>
-                <Grid item xs={6}>           
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <Grid item lg={6} sm={12} className='flex flex-row justify-center items-center'>           
+                <FormControl sx={{ m: 2, minWidth: 120 }}>
                     <InputLabel id="demo-simple-select-helper-label1">Supplier</InputLabel>
                         <Select
                             labelId="demo-simple-select-helper-label"
@@ -97,8 +97,8 @@ const Construction = () => {
                         <FormHelperText>Select Supplier</FormHelperText>
                     </FormControl>
                 </Grid>
-                <Grid item xs={6}>
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <Grid item lg={6} sm={12} className='flex flex-row justify-center items-center'>
+                <FormControl sx={{ m: 2, minWidth: 120 }}>
                     <InputLabel id="demo-simple-select-helper-label">PO Number</InputLabel>
                     <Select
                         labelId="demo-simple-select-helper-label"
