@@ -110,7 +110,7 @@ const Construction = () => {
                 <Grid item xs={12} className='border-t-2 flex flex-wrap'>
                         <Grid container spacing={2}>
                         {data.map((d, index) => (
-                            <Grid item xs={4} md={6} sm={12} key={index}>
+                            <Grid item lg={4} md={6} sm={12} key={index}>
                                 <Card className='m-2 p-4 border rounded-lg shadow-md hover:bg-slate-100 flex flex-col items-start'>
                                     <p className="text-lg font-semibold my-4 border-b-2 p-2">PO_Number: {d.PO_Number}</p>
                                     <p className="text-lg font-semibold my-4 border-b-2 p-2">Order_Value: {d.Order_Value}</p>
