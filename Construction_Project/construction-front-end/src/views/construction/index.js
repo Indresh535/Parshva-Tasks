@@ -112,7 +112,7 @@ const Construction = () => {
                 </Grid>
                 <Grid item sm={12} md={6} lg={4} className='border-t-2'>
                     {data.map((d, index) => (
-                        <Card key={index} className='m-2 p-4 border rounded-lg shadow-md hover:bg-slate-100'>
+                        <Card sm={12} md={6} lg={4} key={index} className='m-2 p-4 border rounded-lg shadow-md hover:bg-slate-100'>
                             <p className="text-lg font-semibold my-4 border-b-2 p-2">PO_Number: {d.PO_Number}</p>
                             <p className="text-lg font-semibold my-4 border-b-2 p-2">Order_Value: {d.Order_Value}</p>
                             <p className="text-lg font-semibold my-4 border-b-2 p-2">Amount_Invoiced: {d.Amount_Invoiced}</p>
