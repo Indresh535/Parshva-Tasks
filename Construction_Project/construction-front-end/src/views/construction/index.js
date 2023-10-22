@@ -110,7 +110,7 @@ const Construction = () => {
                     <FormHelperText>Select Supplier To Display PO Number</FormHelperText>
                 </FormControl>
                 </Grid>
-                <Grid item xs={12} md={6} lg={4} className='border-t-2'>
+                <Grid item sm={12} md={6} lg={4} className='border-t-2'>
                     {data.map((d, index) => (
                         <Card key={index} className='m-2 p-4 border rounded-lg shadow-md hover:bg-slate-100'>
                             <p className="text-lg font-semibold my-4 border-b-2 p-2">PO_Number: {d.PO_Number}</p>
