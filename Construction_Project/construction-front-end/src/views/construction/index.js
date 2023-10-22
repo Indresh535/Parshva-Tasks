@@ -26,6 +26,9 @@ const Construction = () => {
         })
         .catch((error) => {
          // console.log(' getAllPoNumberOnSupplier Error', error);
+        })
+        .finally(() => {
+            setLoading(false);
         });
     };
   
@@ -44,6 +47,9 @@ const Construction = () => {
         })
         .catch((error) => {
          // console.log('getAllDataOnPoNumber Error', error);
+        })
+        .finally(() => {
+            setLoading(false);
         });
     };
   
@@ -57,6 +63,9 @@ const Construction = () => {
         })
         .catch((error) => {
           //console.log('GetAllSupplier Error', error);
+        })
+        .finally(() => {
+            setLoading(false);
         });
     }, []);
     //throw Promise.reject("test")

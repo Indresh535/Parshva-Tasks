@@ -121,7 +121,7 @@ const Navbar = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Indresh">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Button className='rounded-lg shadow-sm p-1 border text-white' variant='outlined'>IND</Button>
+                  <Button className='rounded-lg shadow-sm p-1 border' variant='contained'><span className='text-white'>IND</span></Button>
                 </IconButton>
               </Tooltip>
               <Menu
