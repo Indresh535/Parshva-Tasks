@@ -15,9 +15,9 @@ app.use(express.json());
 
 const db = mysql.createConnection({
     host: "sql12.freesqldatabase.com",
-    database: "sql12655098",
-    user: "sql12655098",
-    password: "DjZE7tMzBG",
+    database: "sql12657382",
+    user: "sql12657382",
+    password: "5fqM9REFyg",
   });
 
 
