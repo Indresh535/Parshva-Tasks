@@ -5,7 +5,18 @@ import { useState } from 'react';
 import { MenuItem, Tooltip, Button, Container, Menu, Typography, IconButton, Toolbar, Box, AppBar } from '@mui/material';
 
 
-const pages = ['Home', 'App', 'Contact'];
+const pages = [ {
+  PageName: 'Home',
+  PageLink: '/',
+},
+{
+  PageName: 'View Docket',
+  PageLink: '/ViewDocket',
+},
+{
+  PageName: 'Contact',
+  PageLink: 'https://my-portfolio-delta-seven-29.vercel.app/Portfolio',
+}] 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
@@ -81,11 +92,11 @@ const Navbar = () => {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <a href='https://my-portfolio-delta-seven-29.vercel.app/'  target='_blank' rel="noreferrer">{page}</a>
+                {pages.map((page, index) => (
+                  <MenuItem key={index} onClick={handleCloseNavMenu}>
+                  <a href={pages.PageLink}  target='_blank' rel="noreferrer">{page.PageName}</a>
                   </MenuItem>
-                ))}
+                ))}               
               </Menu>
             </Box>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -108,15 +119,17 @@ const Navbar = () => {
               LOGO
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
+              {pages.map((page, index) => (
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
-                 <a href='https://my-portfolio-delta-seven-29.vercel.app/Portfolio' target='_blank' rel="noreferrer"> {page}</a>
+                 <a href={page.PageLink} target='_blank' rel="noreferrer"> {page.PageName}</a>
                 </Button>
               ))}
+              
+              <Button variant='outlined' href='/ViewDocket'>ViewDocket</Button>
             </Box>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Indresh">

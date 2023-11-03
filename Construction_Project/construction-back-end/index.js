@@ -14,15 +14,15 @@ app.use(express.json());
 
 
 const db = mysql.createConnection({
-    host: "sql12.freesqldatabase.com",
-    database: "sql12657382",
-    user: "sql12657382",
-    password: "5fqM9REFyg",
+    host: "sql8.freesqldatabase.com",
+    database: "sql8659077",
+    user: "sql8659077",
+    password: "8HaJMKW5eM",
   });
 
 
   app.get("/GetAllSupplier", (req, res) => {
-    const q = "SELECT DISTINCT Supplier FROM construction"; 
+    const q = "SELECT DISTINCT Supplier FROM construction"
     db.query(q, (err, data) => {
       if (err) {
         console.log(err);
@@ -37,7 +37,7 @@ const db = mysql.createConnection({
   // Route to fetch PO numbers based on the selected supplier
 app.post('/getAllPoNumberOnSupplier', (req, res) => {
     const selectedSupplier = req.body.supplier; // Get the selected supplier from the request body
-    const sql = `SELECT PO_Number FROM construction WHERE Supplier = ?`;
+    const sql = `SELECT DISTINCT PO_Number FROM construction WHERE Supplier = ?`;
   
     db.query(sql, [selectedSupplier], (err, results) => {
       if (err) {
@@ -59,7 +59,7 @@ app.post('/getAllDataOnPoNumber', (req, res) => {
     db.query(sql, [selectedPoNumber], (err, results) => {
       if (err) {
         console.error(err);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: 'Internal Server Error' })
       }
       //const poNumbers = results.map((result) => result.PO_Number);
       // Send the entire result, which includes PO numbers, Order_Value, Amount_Invoiced, and Description
@@ -67,6 +67,35 @@ app.post('/getAllDataOnPoNumber', (req, res) => {
     });
   });
 
+
+  app.post('/createDocket', (req, res) => {
+    const docketData = req.body.docketData
+  
+    // Assuming you want to insert the construction data into your database
+    const sql = 'INSERT INTO User (UserName, StartTime, EndTime, HoursWorked, RatePerHour, SelectedSupplier, SelectedPO_Number) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    const values = [docketData.name, docketData.startTime, docketData.endTime, docketData.hoursWorked, docketData.ratePerHour, docketData.selectedSupplier, docketData.selectedPoNumber];
+  
+    db.query(sql, values, (err, result) => {
+      if (err) {
+        console.error('Error creating docket:', err)
+        return res.status(500).json({ error: 'Internal Server Error' })
+      }
+  
+      // Docket created successfully
+      return res.json({ message: 'Docket created successfully' })
+    });
+  });
+
+  app.get("/GetAllUsersDocketData", (req, res) => {
+    const q = "SELECT * FROM User"
+    db.query(q, (err, data) => {
+      if (err) {
+        console.log(err);
+        return res.json(err);
+      }
+      return res.json(data);
+    });
+  });
 
   
   db.connect((err) => {
