@@ -42,7 +42,7 @@ app.post('/getAllPoNumberOnSupplier', (req, res) => {
     db.query(sql, [selectedSupplier], (err, results) => {
       if (err) {
         console.error(err);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: 'Internal Server Error' })
       }
       const poNumbers = results.map((result) => result.PO_Number);
       // Send the entire result, which includes PO numbers, Order_Value, Amount_Invoiced, and Description
@@ -91,7 +91,7 @@ app.post('/getAllDataOnPoNumber', (req, res) => {
     db.query(q, (err, data) => {
       if (err) {
         console.log(err);
-        return res.json(err);
+        return res.json(err)
       }
       return res.json(data);
     });

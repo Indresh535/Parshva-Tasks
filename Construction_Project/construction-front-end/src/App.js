@@ -25,7 +25,7 @@ const App = () => {
             <Route path="/ViewDocket" element={<ViewDocket/>} />       
         </Routes>
         </BrowserRouter>
-         <UserInfo/>
+        <UserInfo/>
         </div>
         <div>
           <div className='fixed bottom-0 left-0 right-0 bg-slate-100'>

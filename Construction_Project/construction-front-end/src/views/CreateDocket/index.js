@@ -3,6 +3,7 @@ import { axios } from '../../api/mySqlClient';
 import { Box, Card, Container, Grid, Select, FormControl, FormHelperText, MenuItem, InputLabel, TextField, Button} from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { toast } from 'react-toastify';
+import LoadingButton from '@mui/lab/LoadingButton'
 
 const CreateDocket = () => {
     const initialValues = [{
@@ -20,6 +21,7 @@ const CreateDocket = () => {
     const [selectedPoNumber, setSelectedPoNumber] = useState('');
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState([]);
 
     const handleChange = (e) => {
         const {id, value} = e.target
@@ -29,6 +31,9 @@ const CreateDocket = () => {
           })
           //console.log("userData", userData)
     }
+
+
+   
   
     const handleSupplierChange = (event) => {
       const selectSupplier = event.target.value;
@@ -91,7 +96,38 @@ const CreateDocket = () => {
 
     const CreateDocket = (e) => {
         e.preventDefault()
-        
+        setLoading(true)
+       // Reset errors
+       setErrors({});
+       const newErrors = {};
+
+       if (!userData.name) {
+           newErrors.name = 'Please Enter Name';
+       }
+       if (!userData.startTime) {
+           newErrors.startTime = 'Please Enter StartTime';
+       }
+       if (!userData.endTime) {
+           newErrors.endTime = 'Please Enter EndTime';
+       }
+       if (!userData.hoursWorked) {
+           newErrors.hoursWorked = 'Please Enter No. of Hours Worked';
+       }
+       if (!userData.ratePerHour) {
+           newErrors.ratePerHour = 'Please Enter Rate Per Hour';
+       }
+       if (!selectedSupplier) {
+        newErrors.selectedSupplier = 'Please Select Supplier';
+        }
+        if (!selectedPoNumber) {
+            newErrors.selectedPoNumber = 'Please Select PO Number';
+        }
+
+
+       if (Object.keys(newErrors).length > 0) {
+           setErrors(newErrors);
+           return; // Don't proceed if there are errors
+       }
 
   // Create an object containing the construction data, selected supplier, and PO number
   const docketData = {
@@ -107,7 +143,12 @@ const CreateDocket = () => {
         .then((res) => {
           // Handle the response, e.g., show a success message
          // console.log('Docket created successfully');
-          toast.success("Docket created successfully")
+        toast.success("Docket created successfully")
+        setLoading(false)
+        setTimeout(() => {
+            window.location.reload(false);
+          }, 3000); // 2000 milliseconds (2 seconds) delay
+        
         })
         .catch((error) => {
           // Handle errors, e.g., show an error message
@@ -126,35 +167,40 @@ const CreateDocket = () => {
         <Grid container spacing={2} className='p-4 mb-4'>
                 <Grid item lg={12} sm={12} className='flex flex-row justify-center items-center'>           
                     <FormControl fullWidth>
-                        <TextField id="name" label="Name" variant="outlined" onChange={handleChange} />
+                        <TextField id="name" error={!!errors.name} label="Name" variant="outlined" onChange={handleChange} />
+                        {errors.name && <p className="font-semibold text-red-600">{errors.name}</p>}
                         <FormHelperText>Enter Your Supplier</FormHelperText>
                     </FormControl>
                 </Grid>
                 <Grid item lg={6} sm={12} className='flex flex-row justify-center items-center'>           
                     <FormControl fullWidth>
-                        <TextField type='date' id="startTime" label="Start Time" variant="outlined" InputLabelProps={{
+                        <TextField type='date' error={!!errors.startTime} id="startTime" label="Start Time" variant="outlined" InputLabelProps={{
                             shrink: true,
                           }} onChange={handleChange}/>
+                          {errors.startTime && <p className="font-semibold text-red-600">{errors.startTime}</p>}
                         <FormHelperText>Enter Your Start Time</FormHelperText>
                     </FormControl>
                 </Grid>
                 <Grid item lg={6} sm={12} className='flex flex-row justify-center items-center'>           
                     <FormControl fullWidth>
-                        <TextField type='date' id="endTime" label="End Time" variant="outlined" InputLabelProps={{
+                        <TextField type='date' error={!!errors.endTime} id="endTime" label="End Time" variant="outlined" InputLabelProps={{
                             shrink: true,
                           }} onChange={handleChange}/>
+                          {errors.endTime && <p className="font-semibold text-red-600">{errors.endTime}</p>}
                         <FormHelperText>Enter Your End Time</FormHelperText>
                     </FormControl>
                 </Grid>
                 <Grid item lg={6} sm={12} className='flex flex-row justify-center items-center'>           
                     <FormControl fullWidth>
-                        <TextField type='number' id="hoursWorked" label="No. of Hours Worked" variant="outlined" onChange={handleChange}/>
+                        <TextField type='number' error={!!errors.hoursWorked} id="hoursWorked" label="No. of Hours Worked" variant="outlined" onChange={handleChange}/>
+                        {errors.hoursWorked && <p className="font-semibold text-red-600">{errors.hoursWorked}</p>}
                         <FormHelperText>Enter No. of Hours Worked</FormHelperText>
                     </FormControl>
                 </Grid>
                 <Grid item lg={6} sm={12} className='flex flex-row justify-center items-center'>           
                     <FormControl fullWidth>
-                        <TextField type='number' id="ratePerHour" label="Rate Per hour" variant="outlined"  onChange={handleChange}/>
+                        <TextField type='number' error={!!errors.ratePerHour} id="ratePerHour" label="Rate Per hour" variant="outlined"  onChange={handleChange}/>
+                        {errors.ratePerHour && <p className="font-semibold text-red-600">{errors.ratePerHour}</p>}
                         <FormHelperText>Enter Rate Per Hour</FormHelperText>
                     </FormControl>
                 </Grid>
@@ -163,8 +209,9 @@ const CreateDocket = () => {
                     <InputLabel id="demo-simple-select-helper-label1">Supplier Name</InputLabel>
                         <Select
                             labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper1"
-                            label="Supplier"
+                            id="supplier"
+                            error={!!errors.selectedSupplier}
+                            label="--Select Supplier--"
                             value={selectedSupplier} // Set the selected supplier
                             onChange={handleSupplierChange}
                         >
@@ -174,6 +221,7 @@ const CreateDocket = () => {
                             </MenuItem>
                         ))}
                         </Select>
+                        {errors.selectedSupplier && <p className="font-semibold text-red-600">{errors.selectedSupplier}</p>}
                         <FormHelperText>Select Supplier</FormHelperText>
                     </FormControl>
                 </Grid>
@@ -182,8 +230,9 @@ const CreateDocket = () => {
                     <InputLabel id="demo-simple-select-helper-label44">PO Number</InputLabel>
                     <Select
                         labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select-helper"
-                        label="PO Number"
+                        id="poNumber"
+                        error={!!errors.selectedPoNumber}
+                        label="--Select PO Number--"
                         value={selectedPoNumber} // Set the selected PO number
                         onChange={handlePoNumberChange}
                     >
@@ -193,12 +242,13 @@ const CreateDocket = () => {
                             </MenuItem>
                         ))}
                     </Select>
+                    {errors.selectedPoNumber && <p className="font-semibold text-red-600">{errors.selectedPoNumber}</p>}
                     <FormHelperText>Select Supplier To Display PO Number</FormHelperText>
                 </FormControl>
                 </Grid>
                 <Grid item xs={12} className='flex flex-row justify-center items-center'>
                 <FormControl fullWidth>
-                    <Button variant='contained' className='m-4' onClick={CreateDocket}>Create Docket</Button>
+                    <LoadingButton loading={loading} variant='contained' className='m-4' onClick={CreateDocket}>Create Docket</LoadingButton>
                 </FormControl>
                 </Grid>
                 <Grid item xs={12} className='mt-4 border-t-2 flex flex-wrap'>
